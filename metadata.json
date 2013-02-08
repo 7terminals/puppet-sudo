@@ -17,7 +17,7 @@
     "manifests\\init.pp": "02e476178ca3f4de29d49dde44bf2865",
     "spec\\spec.opts": "a600ded995d948e393fbe2320ba8e51c",
     "spec\\spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
-    "templates\\sudo_rule.erb": "921f3fccc4fec746665f241f0b619a6f",
+    "templates\\sudo_rule.erb": "b7a113f84379d5c7888c7d310d8f014d",
     "tests\\init.pp": "e3718628f83b891f0c03d0216e20e739"
   },
   "dependencies": []
