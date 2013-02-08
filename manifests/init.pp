@@ -22,7 +22,7 @@ class sudo {
     }
   }
 
-  if $supported = true {
+  if ($supported == true) {
     package { 'sudo': ensure => latest, }
 
     file { '/etc/sudoers':
