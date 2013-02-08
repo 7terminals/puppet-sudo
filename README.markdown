@@ -1,0 +1,3 @@
+# puppet-sudo #
+
+This is the puppet-sudo module. It provides...

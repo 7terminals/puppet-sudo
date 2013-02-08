@@ -1,0 +1,24 @@
+{
+  "name": "puppet-sudo",
+  "author": "Francis",
+  "description": "",
+  "license": "",
+  "project_page": "",
+  "source": "",
+  "summary": "",
+  "version": "",
+  "checksums": {
+    "Modulefile": "c256136e87a7eb4b146600e3e54d4e60",
+    "README.markdown": "5b29c285fe797a01195ed77eba0fb14b",
+    "README.md": "77d7bbc56ddd32a599c6814b141110a8",
+    "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
+    "files\\sudoers": "0337520fbab58bf6edae2f7e4193b8a4",
+    "manifests\\add_role.pp": "7cd3a7270312e3e91e1dce9d63f3ff04",
+    "manifests\\init.pp": "ceb26013887dbc7f892403fc26936b38",
+    "spec\\spec.opts": "a600ded995d948e393fbe2320ba8e51c",
+    "spec\\spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
+    "templates\\sudo_rule.erb": "921f3fccc4fec746665f241f0b619a6f",
+    "tests\\init.pp": "e3718628f83b891f0c03d0216e20e739"
+  },
+  "dependencies": []
+}
