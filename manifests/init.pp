@@ -11,35 +11,30 @@
 # Sample Usage:
 #
 class sudo {
-  case $::operatingsystem {
-    centos, redhat, oel, linux : {
-      $supported = true
-    }
-    default                    : {
-      $supported = false
-
-      notify { "${module_name}_unsupported": message => "Module ${module_name} module is not supported on ${::operatingsystem}", }
-    }
+  # we support only Debian and RedHat
+  case $::osfamily {
+    Debian  : { $supported = true }
+    RedHat  : { $supported = true }
+    default : { fail("The ${module_name} module is not supported on ${::osfamily} based systems") }
   }
 
-  if ($supported == true) {
-    package { 'sudo': ensure => latest, }
-
-    file { '/etc/sudoers':
-      require => Package['sudo'],
-      mode    => 0440,
-      owner   => 'root',
-      group   => 'root',
-      source  => 'puppet:///modules/sudo/sudoers',
-    }
-
-    file { '/etc/sudoers.d':
-      ensure  => directory,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '755',
-      require => File['/etc/sudoers'],
-    }
+  package { 'sudo':
+    ensure => latest,
   }
 
+  file { '/etc/sudoers':
+    require => Package['sudo'],
+    mode    => 0440,
+    owner   => 'root',
+    group   => 'root',
+    source  => 'puppet:///modules/sudo/sudoers',
+  }
+
+  file { '/etc/sudoers.d':
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '755',
+    require => File['/etc/sudoers'],
+  }
 }
