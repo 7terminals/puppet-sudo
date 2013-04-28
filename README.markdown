@@ -5,65 +5,66 @@ sudo
 Overview
 --------
 
-The sudo module 
+The sudo module manages the sudo package on the system, and the various roles for different users.
 
 
 Module Description
 -------------------
 
-The Apache sudo module allows Puppet to install sudo and update the bashrc file to include sudo in the path. 
+The sudo module allow Puppet to manage the sudo package on the system, and the install new sudo roles easily with the sudo::add_role resource definition.
 
 Setup
 -----
 
 **What sudo affects:**
 
-* installation directory for sudo
-* bashrc file of the user or /etc/bashrc if parameter pathfile is not set 
-* ToDo - some more info about keeping apache sudo in its own folder so that on ensure => absent, someone' /usr/local does not disappear
+* sudoers file(/etc/sudoers)
+* sudoers directory(/etc/sudoers.d)
 	
-### Beginning with Apache sudo
+### Beginning with sudo
 
-To setup Apache sudo on a server
+To setup sudo on a server
 
-    sudo::setup { "example.com-sudo":
-      ensure        => 'present',
-      source        => 'apache-sudo-1.9.0-bin.tar.gz',
-      deploymentdir => '/home/example.com/apps/apache-sudo',
-      user          => 'example.com',
-      pathfile      => '/home/example.com/.bashrc'
+    class { 'sudo': 
+      config => 'sudoers'
+    }
+
+To add a role for a user
+
+    sudo::add_role { 'sudo_role_example.com':
+      user => 'example.com',
+      role => 'ALL=(ALL) ALL'
     }
 
 Usage
 ------
 
-The `sudo::setup` resource definition has several parameters to assist installation of sudo.
-
 **Parameters within `sudo`**
+
+####`config`
+
+This parameter specifies the main sudoers file(/etc/sudoers). If specified, the file must reside within the caller module's templates directory.
+
+If not specified, the default configuration file is acceptable in most situations.
+
+
+**Parameters within `sudo::add_role`**
 
 ####`ensure`
 
-This parameter specifies whether sudo should be deployed to the deployment directory and bashrc file is updated or not.
-Valid arguments are "present" or "absent". Default 
+This parameter specifies whether this user's role is enabled or not.
 
-
-####`source`
-
-This parameter specifies the source for the sudo archive. 
-This file must be in the files directory in the caller module. 
-Only .tar.gz source archives are supported.
-
-####`deploymentdir`
-
-This parameter specifies the directory where sudo will be installed.
+Valid arguments are 'present' or 'absent'.
+Defaults to present.
 
 ####`user`
 
-This parameter is used to set the permissions for the installation directory of sudo.
+This parameter is used to specify the the owner of the role.
 
-####`pathfile`
+####`role`
 
-This parameter is used to find and update the bashrc file to include sudo in the environment path.
+This parameter is used to set the role for the user.
+Example: ALL=(ALL) NOPASSWD:ALL
 
 
 Limitations
@@ -89,6 +90,6 @@ Bug Reports
 Release Notes
 --------------
 
-**0.1.0**
+**0.0.1**
 
 First initial release.

@@ -1,4 +1,7 @@
-define sudo::add_role ($user, $role, $ensure = 'present') {
+define sudo::add_role (
+  $user   = undef,
+  $role   = undef,
+  $ensure = 'present') {
   # we support only Debian and RedHat
   case $::osfamily {
     Debian  : { $supported = true }
@@ -9,6 +12,14 @@ define sudo::add_role ($user, $role, $ensure = 'present') {
   # validate parameters
   if !($ensure in ['present', 'absent']) {
     fail('ensure parameter must be present or absent')
+  }
+
+  if ($user == undef) {
+    fail('user parameter must be specified')
+  }
+
+  if ($role == undef) {
+    fail('role parameter must be specified')
   }
 
   file { $name:

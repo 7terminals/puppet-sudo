@@ -10,12 +10,18 @@
 #
 # Sample Usage:
 #
-class sudo {
+class sudo ($config = undef) {
   # we support only Debian and RedHat
   case $::osfamily {
     Debian  : { $supported = true }
     RedHat  : { $supported = true }
     default : { fail("The ${module_name} module is not supported on ${::osfamily} based systems") }
+  }
+
+  if $config == undef {
+    $config_tpl = template("${module_name}/sudoers")
+  } else {
+    $config_tpl = template("${caller_module_name}/${config}")
   }
 
   package { 'sudo':
@@ -27,7 +33,7 @@ class sudo {
     mode    => 0440,
     owner   => 'root',
     group   => 'root',
-    source  => 'puppet:///modules/sudo/sudoers',
+    content => $config_tpl
   }
 
   file { '/etc/sudoers.d':
@@ -35,6 +41,6 @@ class sudo {
     owner   => 'root',
     group   => 'root',
     mode    => '755',
-    require => File['/etc/sudoers'],
+    require => File['/etc/sudoers']
   }
 }
