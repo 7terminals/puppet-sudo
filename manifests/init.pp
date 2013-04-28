@@ -1,16 +1,21 @@
 # Class: sudo
 #
-# This module manages sudo
+# This module manages sudo package and it's configuration in
+# /etc/sudoers
 #
-# Parameters: none
-#
-# Actions:
-#
-# Requires: see Modulefile
+# Parameters: config
 #
 # Sample Usage:
 #
-class sudo ($config = undef) {
+# class { 'sudo': }
+#
+# sudo::add_role { 'sudo_role_example.com':
+#   user => 'example.com',
+#   role => 'ALL=(ALL) ALL'
+# }
+#
+class sudo (
+  $config = undef) {
   # we support only Debian and RedHat
   case $::osfamily {
     Debian  : { $supported = true }
