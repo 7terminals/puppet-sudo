@@ -1,7 +1,7 @@
 # Class: sudo
 #
-# This module manages sudo package and it's configuration in
-# /etc/sudoers
+# This module manages the sudo package and it's configuration in
+# /etc/sudoers and in /etc/sudoers.d
 #
 # Parameters: config
 #
